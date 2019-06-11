@@ -1,41 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  ~ Copyright (c) 2010-2015 Lazery Attack - http://www.lazeryattack.com ~ http://www.lazerycode.com
-  ~
-  ~ Licensed under the Apache License, Version 2.0 (the "License");
-  ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
-  ~
-  ~ http://www.apache.org/licenses/LICENSE-2.0
-  ~
-  ~ Unless required by applicable law or agreed to in writing, software
-  ~ distributed under the License is distributed on an "AS IS" BASIS,
-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~ See the License for the specific language governing permissions and
-  ~ limitations under the License.
-  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <groupId>com.lazerycode.selenium</groupId>
+    <groupId>com.teamalpha.selenium</groupId>
     <artifactId>maven-template</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Selenium Maven Template</name>
-    <description>A Maven Template For Selenium</description>
-    <url>http://www.lazerycode.com</url>
-
-    <licenses>
-        <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
+    <name>Team Alpha Selenium Maven</name>
+    <description>A Team Alpha Maven For Selenium</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,13 +30,13 @@
         <read.timeout>30000</read.timeout>
         <connection.timeout>40000</connection.timeout>
         <retry.attempts>4</retry.attempts>
-        <browser>firefox</browser>
+        <browser>chrome</browser>
         <threads>1</threads>
-        <remote>false</remote>
-        <headless>true</headless>
-        <seleniumGridURL/>
-        <platform/>
-        <browserVersion/>
+        <remote>true</remote>
+        <headless>false</headless>
+        <seleniumGridURL>http://ec2-18-130-241-100.eu-west-2.compute.amazonaws.com:4444/wd/hub</seleniumGridURL>
+        <platform>LINUX</platform>
+        <browserVersion>74.0.3729.108</browserVersion>
         <proxyEnabled>false</proxyEnabled>
         <proxyHost/>
         <proxyPort/>
@@ -101,8 +76,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <profiles>
+	<profiles>
         <profile>
             <id>selenium-tests</id>
             <activation>
@@ -137,13 +111,6 @@
                                 <mac>true</mac>
                             </operatingSystems>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>selenium</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
