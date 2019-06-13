@@ -9,6 +9,7 @@ pipeline {
     stages {
 	    stage('SCM Checkout'){
 		steps {
+	        agent {label 'ecs-java'}
 		checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/depdev/teamalpha-selenium-test']]]
 		}
 		}
@@ -22,9 +23,10 @@ pipeline {
                 echo "Deployment completed" 
             }
         }
-		stage('Automated Test') {
+	stage('Automated Test') {
             steps {
-            sh 'mvn -B -DskipTests clean package'
+            agent {label 'ecs-java'}
+            sh 'mvn clean install'
             }
         }
 		
