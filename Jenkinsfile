@@ -3,8 +3,6 @@ def PackageName ="testpackage"
 def silo="NONE"
 pipeline {
     agent none
-    options {
-    }
     stages {
         stage('SCM Checkout'){
 		steps {
