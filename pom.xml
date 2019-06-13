@@ -106,7 +106,7 @@
                             <fileDownloadRetryAttempts>${retry.attempts}</fileDownloadRetryAttempts>
                             <fileDownloadReadTimeout>${read.timeout}</fileDownloadReadTimeout>
                             <operatingSystems>
-                                <windows>true</windows>
+                                <windows>false</windows>
                                 <linux>true</linux>
                                 <mac>true</mac>
                             </operatingSystems>

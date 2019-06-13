@@ -1,4 +1,4 @@
-package com.teamalpha.selenium.listeners;
+package com.teamalpha.selenium.utils;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -44,13 +44,12 @@ public class ScreenshotListener extends TestListenerAdapter {
             unableToWriteScreenshot.printStackTrace();
         }
     }
-
-    @Override
-    public void onTestFailure(ITestResult failingTest) {
+    
+    public void getScreenshot(String screenShotFileName) {
         try {
             WebDriver driver = getDriver();
             String screenshotDirectory = System.getProperty("screenshotDirectory", "target/screenshots");
-            String screenshotAbsolutePath = screenshotDirectory + File.separator + System.currentTimeMillis() + "_" + failingTest.getName() + ".png";
+            String screenshotAbsolutePath = screenshotDirectory + File.separator + screenShotFileName + "_" + System.currentTimeMillis() + ".png";
             File screenshot = new File(screenshotAbsolutePath);
             if (createFile(screenshot)) {
                 try {
