@@ -4,7 +4,6 @@ def silo="NONE"
 pipeline {
     agent none
     options {
-        skipStagesAfterUnstable()
     }
     stages {
         stage('SCM Checkout'){
