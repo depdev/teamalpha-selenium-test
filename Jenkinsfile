@@ -5,6 +5,7 @@ pipeline {
     agent any
     options {
         skipStagesAfterUnstable()
+        skipDefaultCheckout()
     }
     stages {
         stage('SCM Checkout'){
@@ -32,6 +33,7 @@ pipeline {
                 success {
                     archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                 }
+            }
         }
 		
     }
