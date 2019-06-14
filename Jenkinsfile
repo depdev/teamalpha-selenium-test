@@ -3,9 +3,14 @@ def PackageName ="testpackage"
 def silo="NONE"
 pipeline {
     agent any
+
     options {
         skipStagesAfterUnstable()
         skipDefaultCheckout()
+    }
+
+    environment {
+        pomfilepath = ''
     }
     stages {
         stage('SCM Checkout'){
@@ -32,7 +37,7 @@ pipeline {
 		stage('Automated Test') {
             agent {label 'ecs-javascript'}
             steps {
-                sh 'mvn pom.xml clean verify -Dbrowser=firefox'
+                sh 'mvn -f ${worskspace}/pom.xml clean verify install -Dbrowser=firefox'
             }
             post {
                 success {
