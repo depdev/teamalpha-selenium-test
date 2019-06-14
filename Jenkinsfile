@@ -2,12 +2,10 @@ def Application="Team_Alpha_Web"
 def PackageName ="testpackage"
 def silo="NONE"
 pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
-    }
+    agent none
     stages {
-	    stage('SCM Checkout'){
+        stage('SCM Checkout'){
+		agent {label 'ecs-java'}
 		steps {
 		checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/depdev/teamalpha-selenium-test']]]
 		}
@@ -22,9 +20,10 @@ pipeline {
                 echo "Deployment completed" 
             }
         }
-		stage('Automated Test') {
+	stage('Automated Test') {
+	    agent {label 'ecs-java'}
             steps {
-            sh 'mvn -B -DskipTests clean package'
+            sh 'mvn clean install'
             }
         }
 		
