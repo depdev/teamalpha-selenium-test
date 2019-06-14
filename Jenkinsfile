@@ -23,7 +23,7 @@ pipeline {
 	stage('Automated Test') {
 	    agent {label 'ecs-java'}
             steps {
-            sh 'mvn clean install'
+            sh 'mvn clean verify'
             }
         }
 		
