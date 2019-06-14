@@ -7,7 +7,8 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-	    stage('SCM Checkout'){
+        stage('SCM Checkout'){
+		agent {label 'ecs-javascript'}
 		steps {
 		checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/depdev/teamalpha-selenium-test']]]
 		}
@@ -24,14 +25,13 @@ pipeline {
         }
 		stage('Automated Test') {
             steps {
-            sh 'mvn -B -DskipTests clean package'
+            sh 'mvn clean verify -Dbrowser=firefox'
             }
 
             post {
                 success {
                     archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                 }
-            }
         }
 		
     }
