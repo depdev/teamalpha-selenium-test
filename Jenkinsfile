@@ -32,7 +32,7 @@ pipeline {
 		stage('Automated Test') {
             agent {label 'ecs-javascript'}
             steps {
-                sh 'mvn -f pom.xml clean verify -Dbrowser=firefox'
+                sh 'mvn pom.xml clean verify -Dbrowser=firefox'
             }
             post {
                 success {
