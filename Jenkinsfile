@@ -25,13 +25,14 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo "Deployment completed" 
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'Team Alpha ECS', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ls -l', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'teamalpha-webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
 
 		stage('Automated Test') {
             agent {label 'ecs-javascript'}
             steps {
-                sh 'mvn clean verify -Dbrowser=firefox'
+                sh 'mvn -f pom.xml clean verify -Dbrowser=firefox'
             }
             post {
                 success {
