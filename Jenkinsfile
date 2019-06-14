@@ -30,18 +30,20 @@ pipeline {
         stage('Deploy') { 
             steps {
                 echo "Deployment completed" 
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'Team Alpha ECS', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cd teamalpha-webapp git checkout ls -l', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'teamalpha-webapp', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'Team Alpha ECS', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cd teamalpha-webapp', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: ''), sshTransfer(cleanRemote: false, excludes: '', execCommand: 'git checkout', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: ''), sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker-compose up --build', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
 
 		stage('Automated Test') {
             agent {label 'ecs-javascript'}
             steps {
-                sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                dir("/home/jenkins/workspace/TeamAlpha_Job/"){
+                    sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                }
             }
             post {
                 success {
-                    archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                    archiveArtifacts artifacts: "/home/jenkins/workspace/TeamAlpha_Job/*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                 }
             }
         }
