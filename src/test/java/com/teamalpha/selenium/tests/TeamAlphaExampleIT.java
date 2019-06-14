@@ -24,13 +24,18 @@ public class TeamAlphaExampleIT extends DriverBase {
 			WebDriver driver = getDriver();
 	        driver.get("http://ec2-3-8-115-205.eu-west-2.compute.amazonaws.com:8000/");
 	        
+	        System.out.println(" ");
+	        System.out.println("**********************************************************************************************");
+	        System.out.println("*******************************---------BEGIN: TESTING---------*******************************");
+	        System.out.println("**********************************************************************************************");
 	        ScreenshotListener takescreenshot = new ScreenshotListener();
 	        takescreenshot.getScreenshot("Begin-Execution");
 		}
 
     @Test (priority=2)
     public void teamAlphaInsert() throws Exception {
-    	System.out.println("Enter: UI Insert Data");
+    	System.out.println(" ");
+    	System.out.println("***************Enter: UI Insert Data***************");
     	
     	String taskTitle = "This will Insert Data";
     	String taskDescription = "Added using automated test script";
@@ -43,7 +48,7 @@ public class TeamAlphaExampleIT extends DriverBase {
         driver.get("http://ec2-3-8-115-205.eu-west-2.compute.amazonaws.com:8000/");
 
         // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
+        System.out.println("-----Page title is: " + driver.getTitle() + "-----");
         
         // Input task title
         WebElement taskName = driver.findElement(By.name("title"));
@@ -62,12 +67,13 @@ public class TeamAlphaExampleIT extends DriverBase {
         ScreenshotListener takescreenshot = new ScreenshotListener();
         takescreenshot.getScreenshot("UI-AfterInsert");
         
-        System.out.println("Exit: UI Insert Data");
+        System.out.println("***************Exit: UI Insert Data***************");
+        System.out.println(" ");
     }
     
     @Test (priority=3)	
     public void teamAlphaEdit() throws Exception {
-    	System.out.println("Enter: UI Edit Data");
+    	System.out.println("***************Enter: UI Edit Data***************");
     	
     	int n = 1;
     	String taskTitle = "This will Insert Data";
@@ -86,7 +92,6 @@ public class TeamAlphaExampleIT extends DriverBase {
 			   innerText = driver.findElement(By.xpath("//table/tbody/tr[" + n + "]/td[1]")).getText();
 		   } catch (Exception e) {
 				   // TODO Auto-generated catch block
-				   System.out.println("Reached end of Row");
 			   break;
 		   }
                                                                           
@@ -117,12 +122,13 @@ public class TeamAlphaExampleIT extends DriverBase {
         ScreenshotListener takescreenshot = new ScreenshotListener();
         takescreenshot.getScreenshot("UI-AfterEdit");
         
-        System.out.println("Exit: UI Edit Data");
+        System.out.println("***************Exit: UI Edit Data***************");
+        System.out.println(" ");
     }
     
     @Test (priority=4)
     public static void deleteRow() throws Exception {
-    	System.out.println("Enter: UI Delete Data");
+    	System.out.println("***************Enter: UI Delete Data***************");
     	
     	int n = 1;
     	String TaskTitle = "Edited: This will Insert Data";
@@ -136,13 +142,11 @@ public class TeamAlphaExampleIT extends DriverBase {
 	    		innerText = driver.findElement(By.xpath("//table/tbody/tr[" + n + "]/td[1]")).getText();
 	    	} catch (Exception e) {
 		    	// TODO Auto-generated catch block
-		    	System.out.println("End Of Row Reached");
 		    	break;
 	    	}
     	                                                                       
     	    if(innerText != null && !innerText.isEmpty()) { 
     	    	if(innerText.equals(TaskTitle)) {
-    	    		System.out.println(innerText);
     	    		driver.findElement(By.xpath("//html/body/main/div/div[2]/table/tbody/tr[" + n + "]/td[4]/a[2]")).click();
     	    		
    	        	 ScreenshotListener takescreenshot = new ScreenshotListener();
@@ -154,14 +158,16 @@ public class TeamAlphaExampleIT extends DriverBase {
     	    	break;
     	    }
     	}
-    	System.out.println("Exit: UI Delete Data");
+    	System.out.println("***************Exit: UI Delete Data***************");
     }
     
     @Test (priority=5)
     public void dbValidationSelect() throws SQLException {
-    	
-    	System.out.println("DB Validation: Select All Data");
-    	
+    	System.out.println(" ");
+    	System.out.println("------------------------------------------------------------------------------");
+    	System.out.println("************************DB Validation: Select All Data************************");
+    	System.out.println("------------------------------------------------------------------------------");
+    	System.out.println("----------------------------Team Alpha Table----------------------------------");
     	Connection connection = null;
     	PreparedStatement statement = null;
     	
@@ -176,7 +182,7 @@ public class TeamAlphaExampleIT extends DriverBase {
     		// res.next() returns true if there is any next record else returns false
     		while (res.next())
     		{
-    			System.out.print(res.getString(1));
+    			System.out.print("--  " + res.getString(1));
     			System.out.print("\t" + res.getString(2));
 		    	System.out.print("\t" + res.getString(3));
 		    	System.out.println("\t" + res.getString(4));
@@ -194,13 +200,17 @@ public class TeamAlphaExampleIT extends DriverBase {
 				connection.close();
 			}
 		}
+    	System.out.println("------------------------------End Table Row------------------------------------");
     }
     	
     @Test (priority=6)
     public void dbValidationInsert() throws SQLException {
-        	
-    	System.out.println("DB Validation: Insert Test Data");
-        	
+    	
+    	System.out.println(" ");	
+    	System.out.println("------------------------------------------------------------------------------");
+    	System.out.println("-***********************DB Validation: Insert Test Data**********************-");
+    	System.out.println("------------------------------------------------------------------------------");
+    	System.out.println("----------------------------Team Alpha Table----------------------------------");	
         Connection connection = null;
         PreparedStatement statement = null;
         PreparedStatement statement2 = null;
@@ -225,7 +235,7 @@ public class TeamAlphaExampleIT extends DriverBase {
     		// res.next() returns true if there is any next record else returns false
     		while (res2.next())
     		{
-    			System.out.print(res2.getString(1));
+    			System.out.print("--  " + res2.getString(1));
     			System.out.print("\t" + res2.getString(2));
 		    	System.out.print("\t" + res2.getString(3));
 		    	System.out.println("\t" + res2.getString(4));
@@ -249,6 +259,9 @@ public class TeamAlphaExampleIT extends DriverBase {
     			connection.close();
     		}
     	}
+    	System.out.println("------------------------------End Table Row------------------------------------");
+    	System.out.println(" ");
+    	
     }
     
 	@Test (priority=7)	
@@ -263,8 +276,10 @@ public class TeamAlphaExampleIT extends DriverBase {
 	
     @Test (priority=8)
     public void dbValidationDelete() throws SQLException {
-        	
-    	System.out.println("DB Validation: Delete Test Data");
+    	System.out.println(" ");	
+    	System.out.println("------------------------------------------------------------------------------");
+    	System.out.println("-***********************DB Validation: Delete Test Data**********************-");
+    	System.out.println("------------------------------------------------------------------------------");
         	
         Connection connection = null;
         PreparedStatement statement = null;
@@ -311,8 +326,15 @@ public class TeamAlphaExampleIT extends DriverBase {
 		WebDriver driver = getDriver();
         driver.get("http://ec2-3-8-115-205.eu-west-2.compute.amazonaws.com:8000/");
         
+        
         ScreenshotListener takescreenshot = new ScreenshotListener();
         takescreenshot.getScreenshot("Final-EndOfExecution");
+        
+        System.out.println(" ");
+        System.out.println("**********************************************************************************************");
+        System.out.println("*******************************---------END: TESTING---------*********************************");
+        System.out.println("**********************************************************************************************");
+        System.out.println(" ");
 	}
     
 }
