@@ -30,14 +30,29 @@ pipeline {
             }
         }
 
-		stage('Automated Test - Firefox') {
-            steps {
-                sh 'mvn -f pom.xml clean verify -Dremote=true -Dbrowser=firefox -DbrowserVersion=66.0.3 -Dplatform=LINUX'
-                //sh 'ls -l'
-            }
-            post {
-                success {
-                    archiveArtifacts artifacts: "/var/jenkins_home/jobs/TeamAlpha_Job/workspace/*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+		stage('Automated Test') {
+            parallel {
+                stage('Firefox') {
+                    steps {
+                        sh 'mvn -f pom.xml clean verify -Dremote=true -Dbrowser=firefox -DbrowserVersion=66.0.3 -Dplatform=LINUX'
+                        //sh 'ls -l'
+                    }
+                    post {
+                        success {
+                            archiveArtifacts artifacts: "*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                        }
+                    }
+                }
+                stage('Chrome') {
+                    steps {
+                        sh 'mvn -f pom.xml clean verify -Dremote=true -Dbrowser=chrome -DbrowserVersion=74.0.3729.108 -Dplatform=LINUX'
+                        //sh 'ls -l'
+                    }
+                    post {
+                        success {
+                            archiveArtifacts artifacts: "*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                        }
+                    }
                 }
             }
         }

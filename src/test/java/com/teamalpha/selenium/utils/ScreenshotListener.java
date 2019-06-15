@@ -14,8 +14,10 @@ import static com.teamalpha.selenium.DriverBase.getDriver;
 
 public class ScreenshotListener extends TestListenerAdapter {
 
+	public String browserName = System.getProperty("browser");
     private boolean createFile(File screenshot) {
-        boolean fileCreated = false;
+    boolean fileCreated = false;
+    
 
         if (screenshot.exists()) {
             fileCreated = true;
@@ -48,7 +50,7 @@ public class ScreenshotListener extends TestListenerAdapter {
         try {
             WebDriver driver = getDriver();
             String screenshotDirectory = System.getProperty("screenshotDirectory", "target/screenshots");
-            String screenshotAbsolutePath = screenshotDirectory + File.separator + screenShotFileName + "_" + System.currentTimeMillis() + ".png";
+            String screenshotAbsolutePath = screenshotDirectory + File.separator + browserName + "_" + screenShotFileName + "_" + System.currentTimeMillis() + ".png";
             File screenshot = new File(screenshotAbsolutePath);
             if (createFile(screenshot)) {
                 try {
