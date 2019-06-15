@@ -30,9 +30,9 @@ pipeline {
             }
         }
 
-		stage('Automated Test') {
+		stage('Automated Test - Firefox') {
             steps {
-                sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                sh 'mvn -f pom.xml clean verify install -Dremote=true -Dbrowser=firefox -DbrowserVersion=66.0.3 -Dplatform=LINUX'
                 //sh 'ls -l'
             }
             post {
