@@ -1,6 +1,3 @@
-def Application="Team_Alpha_Web"
-def PackageName ="testpackage"
-def silo="NONE"
 pipeline {
     agent {label 'ecs-javascript'}
 
