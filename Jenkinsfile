@@ -13,8 +13,10 @@ pipeline {
         stage('SCM Checkout'){
 		    agent {label 'ecs-javascript'}
 		    steps {
-		        checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/depdev/teamalpha-selenium-test']]]
-		    }
+                dir("/var/jenkins_home/jobs/TeamAlpha_Job/workspace/"){
+		            checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/depdev/teamalpha-selenium-test']]]
+		        }
+            }
 
 		}
 
@@ -34,14 +36,14 @@ pipeline {
 		stage('Automated Test') {
             agent {label 'ecs-javascript'}
             steps {
-                dir("/home/jenkins/workspace/TeamAlpha_Job/"){
+                dir("/var/jenkins_home/jobs/TeamAlpha_Job/workspace/"){
                     //sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
                     sh 'ls -l'
                 }
             }
             post {
                 success {
-                    archiveArtifacts artifacts: "/home/jenkins/workspace/TeamAlpha_Job/*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                    archiveArtifacts artifacts: "/var/jenkins_home/jobs/TeamAlpha_Job/workspace/*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                 }
             }
         }
