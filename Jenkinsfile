@@ -38,7 +38,7 @@ pipeline {
                     }
                     post {
                         success {
-                            archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                            archiveArtifacts artifacts: "**/target/screenshots/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                         }
                     }
                 }
@@ -49,7 +49,7 @@ pipeline {
                     }
                     post {
                         success {
-                            archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                            archiveArtifacts artifacts: "**/target/screenshots/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                         }
                     }
                 }
