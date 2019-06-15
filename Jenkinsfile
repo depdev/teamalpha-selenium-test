@@ -25,8 +25,7 @@ pipeline {
 
         stage('Deploy') { 
             steps {
-                echo "Deployment completed" 
-                //sshPublisher(publishers: [sshPublisherDesc(configName: 'Team Alpha ECS', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cd teamalpha-webapp && ls -l && docker-compose up --build -d', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'Team Alpha ECS', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cd teamalpha-webapp && ls -l && docker-compose up --build -d', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
 
@@ -39,7 +38,7 @@ pipeline {
                     }
                     post {
                         success {
-                            archiveArtifacts artifacts: "*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                            archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                         }
                     }
                 }
@@ -50,7 +49,7 @@ pipeline {
                     }
                     post {
                         success {
-                            archiveArtifacts artifacts: "*.*", caseSensitive: true, defaultExcludes: false, fingerprint: true
+                            archiveArtifacts artifacts: "**/*", caseSensitive: true, defaultExcludes: false, fingerprint: true
                         }
                     }
                 }
