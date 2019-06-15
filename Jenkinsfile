@@ -32,8 +32,8 @@ pipeline {
 
 		stage('Automated Test') {
             steps {
-                //sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
-                sh 'ls -l'
+                sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                //sh 'ls -l'
             }
             post {
                 success {
