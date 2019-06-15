@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 public class TeamAlphaExampleIT extends DriverBase {
 	
 	private static final Logger logger = Logger.getLogger(TeamAlphaExampleIT.class.getName());
+	public String browserName = System.getProperty("browser");
 	
 		@Test (priority=1)	
 		public void teamAlphaInitialScreen() throws Exception {
@@ -52,11 +53,11 @@ public class TeamAlphaExampleIT extends DriverBase {
         
         // Input task title
         WebElement taskName = driver.findElement(By.name("title"));
-        taskName.sendKeys(taskTitle);
+        taskName.sendKeys(browserName + " : " + taskTitle);
         
         // Input task description
         WebElement taskDesc = driver.findElement(By.name("description"));
-        taskDesc.sendKeys(taskDescription);
+        taskDesc.sendKeys(browserName + " : " + taskDescription);
         
         //Save task
         WebElement saveTask = driver.findElement(By.name("save_task"));
@@ -96,18 +97,18 @@ public class TeamAlphaExampleIT extends DriverBase {
 		   }
                                                                           
 	        if(innerText != null && !innerText.isEmpty()) { 
-	        	if(innerText.equals(taskTitle)) {
+	        	if(innerText.equals(browserName + " : " + taskTitle)) {
 	        		driver.findElement(By.xpath("//html/body/main/div/div[2]/table/tbody/tr[" + n + "]/td[4]/a[1]")).click();
 	         
 	        		WebElement taskName = driver.findElement(By.name("title"));
 	        		taskName.clear();
-	        		taskName.sendKeys(editedTaskTitle);
+	        		taskName.sendKeys(browserName + " : " + editedTaskTitle);
 	           
 	        		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		          
 	        		WebElement taskDesc = driver.findElement(By.name("description"));
 	        		taskDesc.clear();
-	        		taskDesc.sendKeys(editedtaskDescription);
+	        		taskDesc.sendKeys(browserName + " : " + editedtaskDescription);
 		
 	        		WebElement saveTask = driver.findElement(By.name("update"));
 	        		saveTask.click();
@@ -127,7 +128,7 @@ public class TeamAlphaExampleIT extends DriverBase {
     }
     
     @Test (priority=4)
-    public static void deleteRow() throws Exception {
+    public void deleteRow() throws Exception {
     	System.out.println("***************Enter: UI Delete Data***************");
     	
     	int n = 1;
@@ -146,7 +147,7 @@ public class TeamAlphaExampleIT extends DriverBase {
 	    	}
     	                                                                       
     	    if(innerText != null && !innerText.isEmpty()) { 
-    	    	if(innerText.equals(TaskTitle)) {
+    	    	if(innerText.equals(browserName + " : " + TaskTitle)) {
     	    		driver.findElement(By.xpath("//html/body/main/div/div[2]/table/tbody/tr[" + n + "]/td[4]/a[2]")).click();
     	    		
    	        	 ScreenshotListener takescreenshot = new ScreenshotListener();
@@ -222,7 +223,7 @@ public class TeamAlphaExampleIT extends DriverBase {
     		connection = DatabaseConnector.getDBConnection();
     		connection.setAutoCommit(false);
     		
-    		String query = "insert into task values (1001,'" + titleNm + "','" + decriptionNm + "',NOW())";
+    		String query = "insert into task values (1001,'" + browserName + " : " + titleNm + "','" + decriptionNm + "',NOW())";
     		statement = connection.prepareStatement(query);
     		statement.executeUpdate();
     		connection.commit();
@@ -291,7 +292,7 @@ public class TeamAlphaExampleIT extends DriverBase {
     		connection = DatabaseConnector.getDBConnection();
     		connection.setAutoCommit(false);
     		
-    		String query = "delete from task where title = '" + titleNm + "' and description = '" + decriptionNm + "'";
+    		String query = "delete from task where title = '" + browserName + " : " + titleNm + "' and description = '" + decriptionNm + "'";
     		statement = connection.prepareStatement(query);
     		statement.execute(query);
     		connection.commit();
