@@ -35,7 +35,8 @@ pipeline {
             agent {label 'ecs-javascript'}
             steps {
                 dir("/home/jenkins/workspace/TeamAlpha_Job/"){
-                    sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                    //sh 'mvn -f pom.xml clean verify install -Dbrowser=firefox'
+                    sh 'ls -l'
                 }
             }
             post {
