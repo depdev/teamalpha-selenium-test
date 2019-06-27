@@ -17,7 +17,7 @@ pipeline {
 
 		}
 
-        stage('Build') {
+        stage('Builds') {
             steps {
                 echo "Application Build is Successfull"
             }
